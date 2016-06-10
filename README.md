@@ -9,7 +9,7 @@ Filter toodledto ical with datetime.
 Subscribe this url to Calendar.app(replace url with your ical url).
 
 ```
-http://lab.log4d.com/filter_by_datetime?url=http%3A%2F%2Fwww.toodledo.com%2Fid%2Fxxxxxxxxxxxxxxx%2Fical_live_events.ics
+http://toodledo_calendar_filter.alswl.com/filter_by_datetime?url=http%3A%2F%2Fwww.toodledo.com%2Fid%2Fxxxxxxxxxxxxxxx%2Fical_live_events.ics
 ```
 
 
