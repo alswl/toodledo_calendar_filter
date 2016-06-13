@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from copy import copy
+from copy import copy, deepcopy
 import datetime
 
 from icalendar import Calendar
@@ -9,6 +9,9 @@ import requests
 
 
 app = Flask(__name__)
+
+VEVENT_DTSTART = 'DTSTART'
+VEVENT_DTEND = 'DTEND'
 
 
 def _filter_by_datetime(ical):
@@ -20,6 +23,16 @@ def _filter_by_datetime(ical):
     return filterd_ical
 
 
+def _fix_due_datetime(vevent):
+    if VEVENT_DTSTART not in vevent or VEVENT_DTEND not in vevent:
+        return
+    fixed_vevent = deepcopy(vevent)
+    fixed_vevent[VEVENT_DTSTART].dt = vevent[VEVENT_DTEND].dt
+    fixed_vevent[VEVENT_DTEND].dt = (vevent[VEVENT_DTEND].dt
+                                     + (vevent[VEVENT_DTEND].dt - vevent[VEVENT_DTSTART].dt))
+    return fixed_vevent
+
+
 def _fetch_ical_content(url):
     response = requests.get(url)
     return response.text
@@ -28,12 +41,16 @@ def _fetch_ical_content(url):
 @app.route('/filter_by_datetime', methods=['GET'])
 def filter_handler():
     url = request.args.get('url')
+    is_fix_due_datetime = request.args.get('is_fix_due_datetime')
     if url is None:
         abort(406)
     ical_text = _fetch_ical_content(url)
     ical_filtered = _filter_by_datetime(Calendar.from_ical(ical_text))
+    if is_fix_due_datetime == 'true':
+        ical_filtered.subcomponents = [_fix_due_datetime(x) for x in ical_filtered.subcomponents]
 
     return ical_filtered.to_ical()
 
 
+# app.run(debug=True)
 app.run()
