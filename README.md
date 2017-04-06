@@ -12,8 +12,16 @@ Find your ical url here [iCal Subscriptions ✓ Toodledo](https://www.toodledo.c
 it seems like:
 
 ```
+webcal://www.toodledo.com/id/xxxxxxxxxxxxxxx/ical_live_events.ics
+```
+
+replace webcal with http, url encode the url, and put as a prama to 
+
+```
 http://toodledo_calendar_filter.alswl.com/filter_by_datetime?url=http%3A%2F%2Fwww.toodledo.com%2Fid%2Fxxxxxxxxxxxxxxx%2Fical_live_events.ics
 ```
+
+Now, subscribe the url to your Canlender.app.
 
 
 Before:
