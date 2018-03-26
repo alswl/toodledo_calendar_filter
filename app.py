@@ -4,7 +4,7 @@ from copy import copy, deepcopy
 import datetime
 
 from icalendar import Calendar
-from flask import Flask, request, abort
+from flask import Flask, request, abort, Response
 import requests
 
 
@@ -49,7 +49,7 @@ def filter_handler():
     if is_fix_due_datetime == 'true':
         ical_filtered.subcomponents = [_fix_due_datetime(x) for x in ical_filtered.subcomponents]
 
-    return ical_filtered.to_ical()
+    return Response(ical_filtered.to_ical(), mimetype='text/calendar')
 
 
 # app.run(debug=True)
