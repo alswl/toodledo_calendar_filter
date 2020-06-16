@@ -49,7 +49,13 @@ def filter_handler():
     if is_fix_due_datetime == 'true':
         ical_filtered.subcomponents = [_fix_due_datetime(x) for x in ical_filtered.subcomponents]
 
-    return Response(ical_filtered.to_ical(), mimetype='text/calendar')
+    # fix ical bug: status unexpected newline, https://github.com/collective/icalendar/issues/312
+    # fix ical bug: breakline
+    ical_sanitized = ical_filtered.to_ical() \
+        .decode('utf-8') \
+        .replace('Status\r\n :', 'Status:') \
+        .replace('\r\n', '\n')
+    return Response(ical_sanitized, mimetype='text/calendar')
 
 
 # app.run(debug=True)
