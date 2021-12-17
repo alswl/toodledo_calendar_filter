@@ -7,7 +7,6 @@ from icalendar import Calendar
 from flask import Flask, request, abort, Response
 import requests
 
-
 app = Flask(__name__)
 
 VEVENT_DTSTART = 'DTSTART'
@@ -57,6 +56,5 @@ def filter_handler():
         .replace('\r\n', '\n')
     return Response(ical_sanitized, mimetype='text/calendar')
 
-
-# app.run(debug=True)
-app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
