@@ -37,6 +37,11 @@ def _fetch_ical_content(url):
     return response.text
 
 
+@app.route('/', methods=['GET'])
+def root():
+    return Response('ok', mimetype='text/plain')
+
+
 @app.route('/filter_by_datetime', methods=['GET'])
 def filter_handler():
     url = request.args.get('url')
@@ -55,6 +60,7 @@ def filter_handler():
         .replace('Status\r\n :', 'Status:') \
         .replace('\r\n', '\n')
     return Response(ical_sanitized, mimetype='text/calendar')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
