@@ -37,7 +37,7 @@ After:
 
 ```
 VERSION=$(git rev-parse --short HEAD)
-dk build -t toodledo_calendar_filter:${VERSION} .
-dk tag toodledo_calendar_filter:${VERSION} ghcr.io/alswl/toodledo_calendar_filter:${VERSION}
+dk build -t ghcr.io/alswl/toodledo_calendar_filter .
+dk tag ghcr.io/alswl/toodledo_calendar_filter:latest ghcr.io/alswl/toodledo_calendar_filter:${VERSION}
 dk push ghcr.io/alswl/toodledo_calendar_filter:${VERSION}
 ```

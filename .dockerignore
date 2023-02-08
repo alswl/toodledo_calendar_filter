@@ -1,1 +1,8 @@
+.dockerignore
+.idea
 .git
+snapshots
+docker-compose.yml
+Dockerfile
+README.md
+requirements.txt.lock
