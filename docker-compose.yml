@@ -1,7 +1,6 @@
 version: "3.3"
 services:
   web:
-    # build: .
-    image: ghcr.io/alswl/toodledo_calendar_filter:latest
+    image: ghcr.io/alswl/toodledo_calendar_filter:a8008d9
     ports:
       - "5000:5000"
